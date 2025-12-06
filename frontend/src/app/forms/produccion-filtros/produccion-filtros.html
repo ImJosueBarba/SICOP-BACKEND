@@ -30,107 +30,48 @@
       </div>
     </p-card>
 
-    <p-card header="Filtro 1" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro1_h" formControlName="filtro1_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="filtro1_h">Altura</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro1_q" formControlName="filtro1_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber>
-            <label for="filtro1_q">Caudal</label>
-          </p-floatlabel>
-        </div>
+    <div class="two-column-layout">
+      <div class="column-left">
+        <p-card header="Filtro 1">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro1_h" formControlName="filtro1_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="filtro1_h">Altura</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro1_q" formControlName="filtro1_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber><label for="filtro1_q">Caudal</label></p-floatlabel></div>
+          </div>
+        </p-card>
+        <p-card header="Filtro 2">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro2_h" formControlName="filtro2_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="filtro2_h">Altura</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro2_q" formControlName="filtro2_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber><label for="filtro2_q">Caudal</label></p-floatlabel></div>
+          </div>
+        </p-card>
+        <p-card header="Filtro 3">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro3_h" formControlName="filtro3_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="filtro3_h">Altura</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro3_q" formControlName="filtro3_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber><label for="filtro3_q">Caudal</label></p-floatlabel></div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
-
-    <p-card header="Filtro 2" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro2_h" formControlName="filtro2_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="filtro2_h">Altura</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro2_q" formControlName="filtro2_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber>
-            <label for="filtro2_q">Caudal</label>
-          </p-floatlabel>
-        </div>
+      <div class="column-right">
+        <p-card header="Filtro 4">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro4_h" formControlName="filtro4_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="filtro4_h">Altura</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro4_q" formControlName="filtro4_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber><label for="filtro4_q">Caudal</label></p-floatlabel></div>
+          </div>
+        </p-card>
+        <p-card header="Filtro 5">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro5_h" formControlName="filtro5_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="filtro5_h">Altura</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro5_q" formControlName="filtro5_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber><label for="filtro5_q">Caudal</label></p-floatlabel></div>
+          </div>
+        </p-card>
+        <p-card header="Filtro 6">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro6_h" formControlName="filtro6_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="filtro6_h">Altura</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="filtro6_q" formControlName="filtro6_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber><label for="filtro6_q">Caudal</label></p-floatlabel></div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
-
-    <p-card header="Filtro 3" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro3_h" formControlName="filtro3_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="filtro3_h">Altura</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro3_q" formControlName="filtro3_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber>
-            <label for="filtro3_q">Caudal</label>
-          </p-floatlabel>
-        </div>
-      </div>
-    </p-card>
-
-    <p-card header="Filtro 4" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro4_h" formControlName="filtro4_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="filtro4_h">Altura</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro4_q" formControlName="filtro4_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber>
-            <label for="filtro4_q">Caudal</label>
-          </p-floatlabel>
-        </div>
-      </div>
-    </p-card>
-
-    <p-card header="Filtro 5" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro5_h" formControlName="filtro5_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="filtro5_h">Altura</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro5_q" formControlName="filtro5_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber>
-            <label for="filtro5_q">Caudal</label>
-          </p-floatlabel>
-        </div>
-      </div>
-    </p-card>
-
-    <p-card header="Filtro 6" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro6_h" formControlName="filtro6_h" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="filtro6_h">Altura</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber inputId="filtro6_q" formControlName="filtro6_q" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" l/s" styleClass="w-full"></p-inputnumber>
-            <label for="filtro6_q">Caudal</label>
-          </p-floatlabel>
-        </div>
-      </div>
-    </p-card>
+    </div>
 
     @if (successMessage) {
       <p-message severity="success" [text]="successMessage" styleClass="message-full"></p-message>

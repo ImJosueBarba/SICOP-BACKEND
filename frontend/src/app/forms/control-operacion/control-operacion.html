@@ -13,255 +13,149 @@
   </div>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <!-- Fecha y Hora -->
     <p-card header="Fecha y Hora" [style]="{'margin-bottom': '1.5rem'}">
       <div class="p-grid">
         <div class="p-col-12 p-md-6">
           <p-floatlabel>
-            <input 
-              pInputText 
-              id="fecha" 
-              type="date" 
-              formControlName="fecha" 
-              class="w-full" />
+            <input pInputText id="fecha" type="date" formControlName="fecha" class="w-full" />
             <label for="fecha">Fecha *</label>
           </p-floatlabel>
         </div>
         <div class="p-col-12 p-md-6">
           <p-floatlabel>
-            <input 
-              pInputText 
-              id="hora" 
-              type="time" 
-              formControlName="hora" 
-              class="w-full" />
+            <input pInputText id="hora" type="time" formControlName="hora" class="w-full" />
             <label for="hora">Hora *</label>
           </p-floatlabel>
         </div>
       </div>
     </p-card>
 
-    <!-- Turbedad -->
-    <p-card header="Turbedad" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="turbedad_ac" 
-              formControlName="turbedad_ac" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              suffix=" FTU"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="turbedad_ac">Agua Cruda</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="turbedad_at" 
-              formControlName="turbedad_at" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              suffix=" FTU"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="turbedad_at">Agua Tratada</label>
-          </p-floatlabel>
-        </div>
-      </div>
-    </p-card>
+    <div class="two-column-layout">
+      <!-- Columna Izquierda -->
+      <div class="column-left">
+        <!-- Turbedad -->
+        <p-card header="Turbedad">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="turbedad_ac" formControlName="turbedad_ac" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" FTU" styleClass="w-full"></p-inputnumber>
+                <label for="turbedad_ac">Agua Cruda</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="turbedad_at" formControlName="turbedad_at" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" FTU" styleClass="w-full"></p-inputnumber>
+                <label for="turbedad_at">Agua Tratada</label>
+              </p-floatlabel>
+            </div>
+          </div>
+        </p-card>
 
-    <!-- pH -->
-    <p-card header="Niveles de pH" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="ph_ac" 
-              formControlName="ph_ac" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              [min]="0"
-              [max]="14"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="ph_ac">pH Agua Cruda</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="ph_sulf" 
-              formControlName="ph_sulf" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              [min]="0"
-              [max]="14"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="ph_sulf">pH con Sulfato</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="ph_at" 
-              formControlName="ph_at" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              [min]="0"
-              [max]="14"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="ph_at">pH Agua Tratada</label>
-          </p-floatlabel>
-        </div>
-      </div>
-    </p-card>
+        <!-- pH -->
+        <p-card header="Niveles de pH">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="ph_ac" formControlName="ph_ac" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" [max]="14" styleClass="w-full"></p-inputnumber>
+                <label for="ph_ac">pH Agua Cruda</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="ph_sulf" formControlName="ph_sulf" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" [max]="14" styleClass="w-full"></p-inputnumber>
+                <label for="ph_sulf">pH con Sulfato</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="ph_at" formControlName="ph_at" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" [max]="14" styleClass="w-full"></p-inputnumber>
+                <label for="ph_at">pH Agua Tratada</label>
+              </p-floatlabel>
+            </div>
+          </div>
+        </p-card>
 
-    <!-- Dosis de Químicos -->
-    <p-card header="Dosis de Químicos" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="dosis_sulfato" 
-              formControlName="dosis_sulfato" 
-              [minFractionDigits]="3" 
-              [maxFractionDigits]="3"
-              suffix=" l/s"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="dosis_sulfato">Sulfato</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="dosis_cal" 
-              formControlName="dosis_cal" 
-              [minFractionDigits]="3" 
-              [maxFractionDigits]="3"
-              suffix=" l/s"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="dosis_cal">Cal</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="dosis_floergel" 
-              formControlName="dosis_floergel" 
-              [minFractionDigits]="3" 
-              [maxFractionDigits]="3"
-              suffix=" l/s"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="dosis_floergel">Floergel</label>
-          </p-floatlabel>
-        </div>
+        <!-- Presión -->
+        <p-card header="Presión">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="presion_psi" formControlName="presion_psi" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" PSI" styleClass="w-full"></p-inputnumber>
+                <label for="presion_psi">PSI</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="presion_pre" formControlName="presion_pre" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" Kg/h" styleClass="w-full"></p-inputnumber>
+                <label for="presion_pre">PRE</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="presion_pos" formControlName="presion_pos" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" Kg/h" styleClass="w-full"></p-inputnumber>
+                <label for="presion_pos">POS</label>
+              </p-floatlabel>
+            </div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
 
-    <!-- Presión -->
-    <p-card header="Presión" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="presion_psi" 
-              formControlName="presion_psi" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              suffix=" PSI"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="presion_psi">PSI</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="presion_pre" 
-              formControlName="presion_pre" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              suffix=" Kg/h"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="presion_pre">PRE</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="presion_pos" 
-              formControlName="presion_pos" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              suffix=" Kg/h"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="presion_pos">POS</label>
-          </p-floatlabel>
-        </div>
+      <!-- Columna Derecha -->
+      <div class="column-right">
+        <!-- Dosis de Químicos -->
+        <p-card header="Dosis de Químicos">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="dosis_sulfato" formControlName="dosis_sulfato" [minFractionDigits]="3" [maxFractionDigits]="3" suffix=" l/s" styleClass="w-full"></p-inputnumber>
+                <label for="dosis_sulfato">Sulfato</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="dosis_cal" formControlName="dosis_cal" [minFractionDigits]="3" [maxFractionDigits]="3" suffix=" l/s" styleClass="w-full"></p-inputnumber>
+                <label for="dosis_cal">Cal</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="dosis_floergel" formControlName="dosis_floergel" [minFractionDigits]="3" [maxFractionDigits]="3" suffix=" l/s" styleClass="w-full"></p-inputnumber>
+                <label for="dosis_floergel">Floergel</label>
+              </p-floatlabel>
+            </div>
+          </div>
+        </p-card>
+
+        <!-- Otros Parámetros -->
+        <p-card header="Otros Parámetros">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-floatlabel>
+                <input pInputText id="color" formControlName="color" class="w-full" />
+                <label for="color">Color</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="ff" formControlName="ff" [minFractionDigits]="2" [maxFractionDigits]="2" styleClass="w-full"></p-inputnumber>
+                <label for="ff">Factor de Forma</label>
+              </p-floatlabel>
+            </div>
+            <div class="p-col-12">
+              <p-floatlabel>
+                <p-inputnumber inputId="cloro_residual" formControlName="cloro_residual" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" mg/l" styleClass="w-full"></p-inputnumber>
+                <label for="cloro_residual">Cloro Residual</label>
+              </p-floatlabel>
+            </div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
+    </div>
 
-    <!-- Otros Parámetros -->
-    <p-card header="Otros Parámetros" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <input 
-              pInputText 
-              id="color" 
-              formControlName="color" 
-              class="w-full" />
-            <label for="color">Color</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="ff" 
-              formControlName="ff" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="ff">Factor de Forma</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber 
-              inputId="cloro_residual" 
-              formControlName="cloro_residual" 
-              [minFractionDigits]="2" 
-              [maxFractionDigits]="2"
-              suffix=" mg/l"
-              styleClass="w-full">
-            </p-inputnumber>
-            <label for="cloro_residual">Cloro Residual</label>
-          </p-floatlabel>
-        </div>
-      </div>
-    </p-card>
-
-    <!-- Observaciones -->
+    <!-- Observaciones (ancho completo) -->
     <p-card header="Observaciones" styleClass="card-section">
       <p-floatlabel>
-        <textarea 
-          pInputTextarea 
-          id="observaciones" 
-          formControlName="observaciones" 
-          rows="4" 
-          class="w-full">
-        </textarea>
+        <textarea pInputTextarea id="observaciones" formControlName="observaciones" rows="4" class="w-full"></textarea>
         <label for="observaciones">Comentarios adicionales</label>
       </p-floatlabel>
     </p-card>

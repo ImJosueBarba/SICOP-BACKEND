@@ -10,117 +10,58 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <p-card header="Información General" [style]="{'margin-bottom': '1.5rem'}">
       <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <input pInputText id="fecha" type="date" formControlName="fecha" class="w-full" />
-            <label for="fecha">Fecha *</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <p-floatlabel>
-            <p-select inputId="quimico_id" formControlName="quimico_id" [options]="quimicos" placeholder="Seleccione un químico" styleClass="w-full"></p-select>
-            <label for="quimico_id">Químico *</label>
-          </p-floatlabel>
-        </div>
+        <div class="p-col-12 p-md-6"><p-floatlabel><input pInputText id="fecha" type="date" formControlName="fecha" class="w-full" /><label for="fecha">Fecha *</label></p-floatlabel></div>
+        <div class="p-col-12 p-md-6"><p-floatlabel><p-select inputId="quimico_id" formControlName="quimico_id" [options]="quimicos" placeholder="Seleccione un químico" styleClass="w-full"></p-select><label for="quimico_id">Químico *</label></p-floatlabel></div>
       </div>
     </p-card>
 
-    <p-card header="Bodega" styleClass="card-section">
+    <p-card header="Bodega" [style]="{'margin-bottom': '1.5rem'}">
       <div class="p-grid">
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber inputId="bodega_ingresa" formControlName="bodega_ingresa" suffix=" unidades" styleClass="w-full"></p-inputnumber>
-            <label for="bodega_ingresa">Ingresa</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber inputId="bodega_egresa" formControlName="bodega_egresa" suffix=" unidades" styleClass="w-full"></p-inputnumber>
-            <label for="bodega_egresa">Egresa</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-4">
-          <p-floatlabel>
-            <p-inputnumber inputId="bodega_stock" formControlName="bodega_stock" suffix=" unidades" styleClass="w-full"></p-inputnumber>
-            <label for="bodega_stock">Stock</label>
-          </p-floatlabel>
-        </div>
+        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="bodega_ingresa" formControlName="bodega_ingresa" suffix=" unidades" styleClass="w-full"></p-inputnumber><label for="bodega_ingresa">Ingresa</label></p-floatlabel></div>
+        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="bodega_egresa" formControlName="bodega_egresa" suffix=" unidades" styleClass="w-full"></p-inputnumber><label for="bodega_egresa">Egresa</label></p-floatlabel></div>
+        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="bodega_stock" formControlName="bodega_stock" suffix=" unidades" styleClass="w-full"></p-inputnumber><label for="bodega_stock">Stock</label></p-floatlabel></div>
       </div>
     </p-card>
 
-    <p-card header="Tanque N°1" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-3">
-          <p-floatlabel>
-            <input pInputText id="tanque1_hora" type="time" formControlName="tanque1_hora" class="w-full" />
-            <label for="tanque1_hora">Hora</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-3">
-          <p-floatlabel>
-            <p-inputnumber inputId="tanque1_lectura_inicial" formControlName="tanque1_lectura_inicial" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="tanque1_lectura_inicial">Lectura Inicial</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-3">
-          <p-floatlabel>
-            <p-inputnumber inputId="tanque1_lectura_final" formControlName="tanque1_lectura_final" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="tanque1_lectura_final">Lectura Final</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-3">
-          <p-floatlabel>
-            <p-inputnumber inputId="tanque1_consumo" formControlName="tanque1_consumo" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="tanque1_consumo">Consumo</label>
-          </p-floatlabel>
-        </div>
+    <div class="two-column-layout">
+      <div class="column-left">
+        <p-card header="Tanque N°1">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><input pInputText id="tanque1_hora" type="time" formControlName="tanque1_hora" class="w-full" /><label for="tanque1_hora">Hora</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="tanque1_lectura_inicial" formControlName="tanque1_lectura_inicial" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="tanque1_lectura_inicial">Lectura Inicial</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="tanque1_lectura_final" formControlName="tanque1_lectura_final" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="tanque1_lectura_final">Lectura Final</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="tanque1_consumo" formControlName="tanque1_consumo" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="tanque1_consumo">Consumo</label></p-floatlabel></div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
-
-    <p-card header="Tanque N°2 (Opcional - Solo Sulfato)" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-3">
-          <p-floatlabel>
-            <input pInputText id="tanque2_hora" type="time" formControlName="tanque2_hora" class="w-full" />
-            <label for="tanque2_hora">Hora</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-3">
-          <p-floatlabel>
-            <p-inputnumber inputId="tanque2_lectura_inicial" formControlName="tanque2_lectura_inicial" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="tanque2_lectura_inicial">Lectura Inicial</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-3">
-          <p-floatlabel>
-            <p-inputnumber inputId="tanque2_lectura_final" formControlName="tanque2_lectura_final" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="tanque2_lectura_final">Lectura Final</label>
-          </p-floatlabel>
-        </div>
-        <div class="p-col-12 p-md-3">
-          <p-floatlabel>
-            <p-inputnumber inputId="tanque2_consumo" formControlName="tanque2_consumo" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
-            <label for="tanque2_consumo">Consumo</label>
-          </p-floatlabel>
-        </div>
+      <div class="column-right">
+        <p-card header="Tanque N°2 (Opcional - Solo Sulfato)">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><input pInputText id="tanque2_hora" type="time" formControlName="tanque2_hora" class="w-full" /><label for="tanque2_hora">Hora</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="tanque2_lectura_inicial" formControlName="tanque2_lectura_inicial" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="tanque2_lectura_inicial">Lectura Inicial</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="tanque2_lectura_final" formControlName="tanque2_lectura_final" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="tanque2_lectura_final">Lectura Final</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="tanque2_consumo" formControlName="tanque2_consumo" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber><label for="tanque2_consumo">Consumo</label></p-floatlabel></div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
+    </div>
 
-    <p-card header="Total y Observaciones" styleClass="card-section">
+    <p-card header="Total Consumo" [style]="{'margin-bottom': '1.5rem'}">
       <div class="p-grid">
-        <div class="p-col-12 p-md-6">
+        <div class="p-col-12">
           <p-floatlabel>
             <p-inputnumber inputId="total_consumo" formControlName="total_consumo" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" cm" styleClass="w-full"></p-inputnumber>
             <label for="total_consumo">Consumo Total</label>
           </p-floatlabel>
         </div>
-        <div class="p-col-12">
-          <p-floatlabel>
-            <textarea pInputTextarea id="observaciones" formControlName="observaciones" rows="4" class="w-full"></textarea>
-            <label for="observaciones">Observaciones</label>
-          </p-floatlabel>
-        </div>
       </div>
+    </p-card>
+
+    <p-card header="Observaciones" styleClass="card-section">
+      <p-floatlabel>
+        <textarea pInputTextarea id="observaciones" formControlName="observaciones" rows="4" class="w-full"></textarea>
+        <label for="observaciones">Observaciones</label>
+      </p-floatlabel>
     </p-card>
 
     @if (successMessage) {

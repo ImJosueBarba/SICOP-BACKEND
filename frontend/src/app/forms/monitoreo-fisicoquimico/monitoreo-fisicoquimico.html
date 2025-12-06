@@ -7,37 +7,45 @@
     </div>
   </div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <p-card header="Información General">
+    <p-card header="Información General" [style]="{'margin-bottom': '1.5rem'}">
       <div class="p-grid">
         <div class="p-col-12 p-md-4"><p-floatlabel><input pInputText id="fecha" type="date" formControlName="fecha" class="w-full" /><label for="fecha">Fecha *</label></p-floatlabel></div>
         <div class="p-col-12 p-md-4"><p-floatlabel><input pInputText id="hora" type="time" formControlName="hora" class="w-full" /><label for="hora">Hora *</label></p-floatlabel></div>
         <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="muestra_numero" formControlName="muestra_numero" [min]="1" [max]="3" styleClass="w-full"></p-inputnumber><label for="muestra_numero">Nº Muestra (1-3) *</label></p-floatlabel></div>
       </div>
     </p-card>
-    <p-card header="Lugares de Muestreo" styleClass="card-section">
+
+    <p-card header="Lugares de Muestreo" [style]="{'margin-bottom': '1.5rem'}">
       <div class="p-grid">
         <div class="p-col-12 p-md-6"><p-floatlabel><input pInputText id="lugar_agua_cruda" formControlName="lugar_agua_cruda" class="w-full" /><label for="lugar_agua_cruda">Lugar Agua Cruda</label></p-floatlabel></div>
         <div class="p-col-12 p-md-6"><p-floatlabel><input pInputText id="lugar_agua_tratada" formControlName="lugar_agua_tratada" class="w-full" /><label for="lugar_agua_tratada">Lugar Agua Tratada</label></p-floatlabel></div>
       </div>
     </p-card>
-    <p-card header="Agua Cruda" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="ac_ph" formControlName="ac_ph" [minFractionDigits]="2" [min]="0" [max]="14" styleClass="w-full"></p-inputnumber><label for="ac_ph">pH</label></p-floatlabel></div>
-        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="ac_ce" formControlName="ac_ce" [minFractionDigits]="2" suffix=" μS/cm" styleClass="w-full"></p-inputnumber><label for="ac_ce">Conductividad</label></p-floatlabel></div>
-        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="ac_tds" formControlName="ac_tds" [minFractionDigits]="2" suffix=" ppm" styleClass="w-full"></p-inputnumber><label for="ac_tds">TDS</label></p-floatlabel></div>
-        <div class="p-col-12 p-md-6"><p-floatlabel><p-inputnumber inputId="ac_salinidad" formControlName="ac_salinidad" [minFractionDigits]="3" suffix=" ppt" styleClass="w-full"></p-inputnumber><label for="ac_salinidad">Salinidad</label></p-floatlabel></div>
-        <div class="p-col-12 p-md-6"><p-floatlabel><p-inputnumber inputId="ac_temperatura" formControlName="ac_temperatura" [minFractionDigits]="2" suffix=" °C" styleClass="w-full"></p-inputnumber><label for="ac_temperatura">Temperatura</label></p-floatlabel></div>
+
+    <div class="two-column-layout">
+      <div class="column-left">
+        <p-card header="Agua Cruda">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="ac_ph" formControlName="ac_ph" [minFractionDigits]="2" [min]="0" [max]="14" styleClass="w-full"></p-inputnumber><label for="ac_ph">pH</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="ac_ce" formControlName="ac_ce" [minFractionDigits]="2" suffix=" μS/cm" styleClass="w-full"></p-inputnumber><label for="ac_ce">Conductividad</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="ac_tds" formControlName="ac_tds" [minFractionDigits]="2" suffix=" ppm" styleClass="w-full"></p-inputnumber><label for="ac_tds">TDS</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="ac_salinidad" formControlName="ac_salinidad" [minFractionDigits]="3" suffix=" ppt" styleClass="w-full"></p-inputnumber><label for="ac_salinidad">Salinidad</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="ac_temperatura" formControlName="ac_temperatura" [minFractionDigits]="2" suffix=" °C" styleClass="w-full"></p-inputnumber><label for="ac_temperatura">Temperatura</label></p-floatlabel></div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
-    <p-card header="Agua Tratada" styleClass="card-section">
-      <div class="p-grid">
-        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="at_ph" formControlName="at_ph" [minFractionDigits]="2" [min]="0" [max]="14" styleClass="w-full"></p-inputnumber><label for="at_ph">pH</label></p-floatlabel></div>
-        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="at_ce" formControlName="at_ce" [minFractionDigits]="2" suffix=" μS/cm" styleClass="w-full"></p-inputnumber><label for="at_ce">Conductividad</label></p-floatlabel></div>
-        <div class="p-col-12 p-md-4"><p-floatlabel><p-inputnumber inputId="at_tds" formControlName="at_tds" [minFractionDigits]="2" suffix=" ppm" styleClass="w-full"></p-inputnumber><label for="at_tds">TDS</label></p-floatlabel></div>
-        <div class="p-col-12 p-md-6"><p-floatlabel><p-inputnumber inputId="at_salinidad" formControlName="at_salinidad" [minFractionDigits]="3" suffix=" ppt" styleClass="w-full"></p-inputnumber><label for="at_salinidad">Salinidad</label></p-floatlabel></div>
-        <div class="p-col-12 p-md-6"><p-floatlabel><p-inputnumber inputId="at_temperatura" formControlName="at_temperatura" [minFractionDigits]="2" suffix=" °C" styleClass="w-full"></p-inputnumber><label for="at_temperatura">Temperatura</label></p-floatlabel></div>
+      <div class="column-right">
+        <p-card header="Agua Tratada">
+          <div class="p-grid">
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="at_ph" formControlName="at_ph" [minFractionDigits]="2" [min]="0" [max]="14" styleClass="w-full"></p-inputnumber><label for="at_ph">pH</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="at_ce" formControlName="at_ce" [minFractionDigits]="2" suffix=" μS/cm" styleClass="w-full"></p-inputnumber><label for="at_ce">Conductividad</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="at_tds" formControlName="at_tds" [minFractionDigits]="2" suffix=" ppm" styleClass="w-full"></p-inputnumber><label for="at_tds">TDS</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="at_salinidad" formControlName="at_salinidad" [minFractionDigits]="3" suffix=" ppt" styleClass="w-full"></p-inputnumber><label for="at_salinidad">Salinidad</label></p-floatlabel></div>
+            <div class="p-col-12"><p-floatlabel><p-inputnumber inputId="at_temperatura" formControlName="at_temperatura" [minFractionDigits]="2" suffix=" °C" styleClass="w-full"></p-inputnumber><label for="at_temperatura">Temperatura</label></p-floatlabel></div>
+          </div>
+        </p-card>
       </div>
-    </p-card>
+    </div>
     <p-card header="Observaciones" styleClass="card-section">
       <p-floatlabel><textarea pInputTextarea id="observaciones" formControlName="observaciones" rows="4" class="w-full"></textarea><label for="observaciones">Observaciones</label></p-floatlabel>
     </p-card>
