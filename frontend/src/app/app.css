@@ -1,6 +1,6 @@
 .main-content {
   min-height: 100vh;
-  background: #f5f6fa;
+  background: transparent;
 }
 
 /* Cuando hay navbar, agregar padding top */

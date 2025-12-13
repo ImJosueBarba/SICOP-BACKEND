@@ -5,7 +5,7 @@ Sistema de Gestión de Planta de Tratamiento de Agua "La Esperanza"
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import engine
+from core.database import engine
 from models import Base
 
 # Importar routers

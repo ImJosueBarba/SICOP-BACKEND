@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import date
 
-from database import get_db
+from core.database import get_db
 from models.monitoreo_fisicoquimico import MonitoreoFisicoquimico
 from schemas.monitoreo_fisicoquimico import (
     MonitoreoFisicoquimicoCreate,

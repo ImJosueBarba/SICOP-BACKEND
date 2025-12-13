@@ -1,6 +1,6 @@
 .user-management-container {
     padding: 2rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: transparent;
     min-height: 100vh;
 }
 
@@ -33,13 +33,20 @@
 ::ng-deep {
     .p-card {
         border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
         overflow: hidden;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,0.4);
     }
 
     .p-toolbar {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: rgba(102, 126, 234, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         border: none;
+        border-bottom: 1px solid rgba(102, 126, 234, 0.2);
         padding: 1.25rem;
         border-radius: 20px 20px 0 0;
     }
@@ -80,8 +87,10 @@
         }
 
         .p-datatable-thead > tr > th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: rgba(102, 126, 234, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #333;
             font-weight: 600;
             padding: 1rem;
             border: none;

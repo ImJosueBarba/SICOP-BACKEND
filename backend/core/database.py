@@ -18,13 +18,14 @@ DATABASE_URL = os.getenv(
     "postgresql://postgres:UTM123@localhost:5432/planta_esperanza"
 )
 
-# Crear engine
+# Crear engine con codificación UTF-8
 engine = create_engine(
     DATABASE_URL,
     pool_pre_ping=True,  # Verifica la conexión antes de usarla
     echo=False,  # Cambia a True para ver las queries SQL en consola
     future=True,
-    poolclass=NullPool if "sqlite" in DATABASE_URL else None
+    poolclass=NullPool if "sqlite" in DATABASE_URL else None,
+    connect_args={"client_encoding": "utf8"}  # Forzar UTF-8
 )
 
 # Crear SessionLocal

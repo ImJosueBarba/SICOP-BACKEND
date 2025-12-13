@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import date, time
 
-from database import get_db
+from core.database import get_db
 from models.control_operacion import ControlOperacion
 from schemas.control_operacion import (
     ControlOperacionCreate,

@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
-from database import get_db
+from core.database import get_db
 from core.config import settings
 from models.usuario import Usuario
 from schemas.auth import TokenData
