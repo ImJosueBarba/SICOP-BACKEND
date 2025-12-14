@@ -101,7 +101,11 @@ ALTER TABLE consumo_quimicos_mensual
     ADD CONSTRAINT consumo_quimicos_mensual_usuario_id_fkey 
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id);
 
--- 4. Actualizar los roles existentes (si hay datos)
+-- 4. Agregar columna foto_perfil
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS foto_perfil VARCHAR(500);
+COMMENT ON COLUMN usuarios.foto_perfil IS 'URL o ruta de la foto de perfil del usuario';
+
+-- 5. Actualizar los roles existentes (si hay datos)
 UPDATE usuarios SET rol = 'ADMINISTRADOR'::userole WHERE rol::text = 'ADMIN';
 UPDATE usuarios SET rol = 'OPERADOR'::userole WHERE rol::text IN ('OPERADOR', 'VISUALIZADOR');
 
