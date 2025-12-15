@@ -286,6 +286,14 @@ html.dark .header-section {
     color: #f9fafb;
 }
 
+html.dark .page-title {
+    color: #f3f4f6 !important;
+}
+
+html.dark .page-subtitle {
+    color: #d1d5db !important;
+}
+
 html.dark ::ng-deep .p-card {
     background: rgba(30, 41, 59, 0.98) !important;
     border-color: rgba(55, 65, 81, 0.4) !important;

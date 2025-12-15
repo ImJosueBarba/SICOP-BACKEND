@@ -2,7 +2,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, firstValueFrom } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 
 export interface User {
@@ -36,9 +36,17 @@ export class AuthService {
 
     private currentUserSubject = new BehaviorSubject<User | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
+    
+    private isInitialized = false;
 
     constructor() {
-        this.loadUserFromToken();
+        // Don't load user here, wait for initializeAuth()
+    }
+    
+    async initializeAuth(): Promise<void> {
+        if (this.isInitialized) return;
+        this.isInitialized = true;
+        await this.loadUserFromToken();
     }
 
     login(username: string, password: string): Observable<AuthResponse> {
@@ -82,42 +90,60 @@ export class AuthService {
         return this.currentUserSubject.value;
     }
 
-    loadUserFromToken() {
+    async loadUserFromToken(): Promise<void> {
         const token = this.getToken();
-        if (token) {
-            try {
-                const decoded: any = jwtDecode(token);
-                // We need to fetch the user details to get the role, 
-                // OR we can include the role in the JWT payload in the backend.
-                // For now, let's fetch /me to get the role or assume we decode it if we add it to token.
-                // To keep it simple and secure, let's fetch /me.
-
-                this.http.get<any>(`${this.apiUrl}/me`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                }).subscribe({
-                    next: (user) => {
-                        this.currentUserSubject.next({
-                            id: user.id,
-                            username: user.username,
-                            nombre: user.nombre,
-                            apellido: user.apellido,
-                            email: user.email,
-                            telefono: user.telefono,
-                            rol: user.rol,
-                            activo: user.activo,
-                            fecha_contratacion: user.fecha_contratacion,
-                            foto_perfil: user.foto_perfil,
-                            sub: user.username
-                        });
-                    },
-                    error: () => {
-                        this.logout();
-                    }
-                });
-
-            } catch (e) {
+        if (!token) {
+            this.currentUserSubject.next(null);
+            return;
+        }
+        
+        try {
+            const decoded: any = jwtDecode(token);
+            
+            // Check if token is expired
+            const currentTime = Math.floor(Date.now() / 1000);
+            if (decoded.exp && decoded.exp < currentTime) {
+                console.log('Token expired, logging out');
                 this.logout();
+                return;
             }
+            
+            // Fetch user details from /me endpoint
+            try {
+                const user = await firstValueFrom(
+                    this.http.get<any>(`${this.apiUrl}/me`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    })
+                );
+                
+                this.currentUserSubject.next({
+                    id: user.id,
+                    username: user.username,
+                    nombre: user.nombre,
+                    apellido: user.apellido,
+                    email: user.email,
+                    telefono: user.telefono,
+                    rol: user.rol,
+                    activo: user.activo,
+                    fecha_contratacion: user.fecha_contratacion,
+                    foto_perfil: user.foto_perfil,
+                    sub: user.username
+                });
+            } catch (err: any) {
+                console.error('Error loading user:', err);
+                // Only logout if it's an authentication error (401)
+                if (err.status === 401) {
+                    this.logout();
+                } else {
+                    // For other errors, keep the session but don't set user
+                    console.warn('Error fetching user data, but keeping token');
+                    this.currentUserSubject.next(null);
+                }
+            }
+
+        } catch (e) {
+            console.error('Error decoding token:', e);
+            this.logout();
         }
     }
 

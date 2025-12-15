@@ -7,19 +7,25 @@ export const authGuard: CanActivateFn = (route, state) => {
     const authService = inject(AuthService);
     const router = inject(Router);
 
-    if (authService.isAuthenticated()) {
-        const requiredRoles = route.data?.['roles'] as Array<string>;
-        if (requiredRoles) {
-            if (authService.hasRole(requiredRoles)) {
-                return true;
-            } else {
-                // Redirect to home or unauthorized page if role doesn't match
-                // For now, just return false or redirect to home
-                return router.createUrlTree(['/']);
-            }
-        }
-        return true;
+    // Check if there's a token
+    if (!authService.isAuthenticated()) {
+        return router.createUrlTree(['/login']);
     }
 
-    return router.createUrlTree(['/login']);
+    // Get current user (should be loaded by APP_INITIALIZER)
+    const user = authService.getUser();
+    
+    if (!user) {
+        // Token exists but user failed to load, redirect to login
+        return router.createUrlTree(['/login']);
+    }
+
+    // Check role-based access
+    const requiredRoles = route.data?.['roles'] as Array<string>;
+    if (requiredRoles && !authService.hasRole(requiredRoles)) {
+        // Redirect to home if role doesn't match
+        return router.createUrlTree(['/home']);
+    }
+    
+    return true;
 };

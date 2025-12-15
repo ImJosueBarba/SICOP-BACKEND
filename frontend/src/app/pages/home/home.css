@@ -2,6 +2,11 @@
   padding: 2rem;
   max-width: 1600px;
   margin: 0 auto;
+  min-height: 100vh;
+}
+
+html.dark .dashboard-container {
+  background: transparent;
 }
 
 /* Welcome Section */
@@ -154,7 +159,7 @@ html.dark .stat-value {
 }
 
 html.dark .section-header h2 {
-  color: #f9fafb;
+  color: #ffffff !important;
 }
 
 .section-header p {
@@ -164,7 +169,7 @@ html.dark .section-header h2 {
 }
 
 html.dark .section-header p {
-  color: #9ca3af;
+  color: #e5e7eb !important;
 }
 
 /* Actions Grid */
@@ -378,7 +383,7 @@ html.dark .action-content p {
 
 /* Dark mode support */
 html.dark .dashboard-container {
-  background: #111827;
+  background: transparent;
 }
 
 html.dark .stat-card,
@@ -389,23 +394,23 @@ html.dark .info-card {
 }
 
 html.dark .stat-label {
-  color: #9ca3af;
+  color: #d1d5db !important;
 }
 
 html.dark .stat-value {
-  color: #f9fafb;
+  color: #f9fafb !important;
 }
 
 html.dark .section-header h2,
 html.dark .action-content h3,
 html.dark .info-header h3 {
-  color: #f9fafb;
+  color: #ffffff !important;
 }
 
 html.dark .section-header p,
 html.dark .action-content p,
 html.dark .info-content p {
-  color: #9ca3af;
+  color: #e5e7eb !important;
 }
 
 html.dark .info-header {
@@ -413,7 +418,15 @@ html.dark .info-header {
 }
 
 html.dark .feature span {
+  color: #e5e7eb !important;
+}
+
+html.dark .action-arrow {
   color: #d1d5db;
+}
+
+html.dark .action-card:hover .action-arrow {
+  color: #f3f4f6;
 }
 
 /* Responsive */
