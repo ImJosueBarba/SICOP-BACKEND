@@ -113,7 +113,8 @@ export class UserManagement implements OnInit {
         this.loading = true;
         this.usuariosService.getUsuarios().subscribe({
             next: (data) => {
-                this.usuarios = data;
+                // Crear un nuevo array para forzar la detección de cambios
+                this.usuarios = [...data];
                 this.loading = false;
             },
             error: (error) => {
@@ -249,12 +250,21 @@ export class UserManagement implements OnInit {
             const updateData: any = {
                 nombre: usuario.nombre,
                 apellido: usuario.apellido,
-                email: usuario.email,
-                telefono: usuario.telefono,
+                username: usuario.username,
                 rol_id: usuario.rol_id,
-                activo: usuario.activo,
-                fecha_contratacion: usuario.fecha_contratacion
+                activo: usuario.activo
             };
+
+            // Solo agregar campos opcionales si tienen valor
+            if (usuario.email && usuario.email.trim() !== '') {
+                updateData.email = usuario.email;
+            }
+            if (usuario.telefono && usuario.telefono.trim() !== '') {
+                updateData.telefono = usuario.telefono;
+            }
+            if (usuario.fecha_contratacion && usuario.fecha_contratacion.trim() !== '') {
+                updateData.fecha_contratacion = usuario.fecha_contratacion;
+            }
 
             // Solo incluir password si se proporcionó uno nuevo
             if (usuario.password && usuario.password.trim() !== '') {
@@ -262,14 +272,17 @@ export class UserManagement implements OnInit {
             }
 
             this.usuariosService.updateUsuario(usuario.id, updateData).subscribe({
-                next: () => {
+                next: (response) => {
+                    this.hideDialog();
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Éxito',
                         detail: 'Usuario actualizado correctamente'
                     });
-                    this.loadUsuarios();
-                    this.hideDialog();
+                    // Recargar después de cerrar el diálogo y mostrar el mensaje
+                    setTimeout(() => {
+                        this.loadUsuarios();
+                    }, 100);
                 },
                 error: (error) => {
                     this.messageService.add({

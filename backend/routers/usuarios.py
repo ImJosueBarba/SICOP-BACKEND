@@ -3,7 +3,7 @@ Router para operaciones CRUD de Usuarios
 Sistema de Gestión de Usuarios con roles (Administrador y Operador)
 """
 
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form, Request
 from sqlalchemy.orm import Session
 from typing import List, Optional
 import json
@@ -39,7 +39,8 @@ def create_log(
     accion: str,
     entidad: str = None,
     entidad_id: int = None,
-    detalles: str = None
+    detalles: str = None,
+    request: Request = None
 ):
     """Función auxiliar para crear logs"""
     log = LogAuditoria(
@@ -48,7 +49,9 @@ def create_log(
         accion=accion,
         entidad=entidad,
         entidad_id=entidad_id,
-        detalles=detalles
+        detalles=detalles,
+        ip_address=request.client.host if request and request.client else None,
+        user_agent=request.headers.get("user-agent") if request else None
     )
     db.add(log)
     db.commit()
@@ -130,7 +133,8 @@ def get_usuario(
 
 @router.post("/", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED)
 def create_usuario(
-    usuario: UsuarioCreate, 
+    usuario: UsuarioCreate,
+    request: Request,
     db: Session = Depends(get_db),
     current_user: Usuario = Depends(get_current_active_user)
 ):
@@ -183,7 +187,8 @@ def create_usuario(
             "usuario_creado": f"{db_usuario.nombre} {db_usuario.apellido}",
             "username": db_usuario.username,
             "rol": db_usuario.rol_obj.nombre if db_usuario.rol_obj else "Sin rol"
-        })
+        }),
+        request=request
     )
     
     return db_usuario
@@ -192,8 +197,10 @@ def create_usuario(
 @router.put("/{usuario_id}", response_model=UsuarioResponse)
 async def update_usuario(
     usuario_id: int,
+    request: Request,
     nombre: Optional[str] = Form(None),
     apellido: Optional[str] = Form(None),
+    username: Optional[str] = Form(None),
     email: Optional[str] = Form(None),
     telefono: Optional[str] = Form(None),
     password: Optional[str] = Form(None),
@@ -237,6 +244,20 @@ async def update_usuario(
     if apellido is not None:
         db_usuario.apellido = apellido
         campos_modificados.append('apellido')
+    
+    # Actualizar username (verificar unicidad)
+    if username is not None:
+        existing = db.query(Usuario).filter(
+            Usuario.username == username,
+            Usuario.id != usuario_id
+        ).first()
+        if existing:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="El nombre de usuario ya está registrado"
+            )
+        db_usuario.username = username
+        campos_modificados.append('username')
     
     if telefono is not None:
         db_usuario.telefono = telefono
@@ -338,7 +359,8 @@ async def update_usuario(
             detalles=json.dumps({
                 "usuario_actualizado": f"{db_usuario.nombre} {db_usuario.apellido}",
                 "campos_modificados": campos_modificados
-            })
+            }),
+            request=request
         )
     
     return db_usuario
@@ -347,6 +369,7 @@ async def update_usuario(
 @router.delete("/{usuario_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_usuario(
     usuario_id: int,
+    request: Request,
     db: Session = Depends(get_db),
     current_user: Usuario = Depends(get_current_active_user)
 ):
@@ -389,7 +412,8 @@ def delete_usuario(
             "usuario_eliminado": usuario_nombre,
             "username": usuario_username,
             "nota": "Usuario desactivado"
-        })
+        }),
+        request=request
     )
     
     return None
@@ -398,6 +422,7 @@ def delete_usuario(
 @router.post("/{usuario_id}/activar", response_model=UsuarioResponse)
 def activar_usuario(
     usuario_id: int,
+    request: Request,
     db: Session = Depends(get_db),
     current_user: Usuario = Depends(get_current_active_user)
 ):
@@ -417,5 +442,19 @@ def activar_usuario(
     db_usuario.activo = True
     db.commit()
     db.refresh(db_usuario)
+    
+    # Registrar log de activación
+    create_log(
+        db=db,
+        current_user=current_user,
+        accion="ACTIVAR",
+        entidad="usuarios",
+        entidad_id=usuario_id,
+        detalles=json.dumps({
+            "usuario_activado": f"{db_usuario.nombre} {db_usuario.apellido}",
+            "username": db_usuario.username
+        }),
+        request=request
+    )
     
     return db_usuario

@@ -22,7 +22,7 @@ class ControlCloroLibreBase(BaseModel):
     cantidad_saldo: Optional[int] = None
     
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para crear
@@ -43,7 +43,7 @@ class ControlCloroLibreUpdate(BaseModel):
     cantidad_sale: Optional[int] = None
     cantidad_saldo: Optional[int] = None
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para respuesta

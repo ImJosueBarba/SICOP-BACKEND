@@ -35,7 +35,7 @@ class ControlConsumoDiarioBase(BaseModel):
     total_consumo: Optional[Decimal] = None
     
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para crear
@@ -62,7 +62,7 @@ class ControlConsumoDiarioUpdate(BaseModel):
     tanque2_consumo: Optional[Decimal] = None
     total_consumo: Optional[Decimal] = None
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para respuesta

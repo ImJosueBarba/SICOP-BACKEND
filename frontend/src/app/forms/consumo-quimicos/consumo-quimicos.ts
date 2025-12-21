@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Location, CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-consumo-quimicos',
@@ -17,6 +18,7 @@ export class ConsumoQuimicos implements OnInit {
   private http = inject(HttpClient);
   private router = inject(Router);
   private location = inject(Location);
+  private authService = inject(AuthService);
   
   form!: FormGroup;
   loading = false;
@@ -24,7 +26,7 @@ export class ConsumoQuimicos implements OnInit {
   errorMessage = '';
   quimicos: any[] = [];
   
-  private apiUrl = 'http://localhost:8000/api/control-consumo-diario';
+  private apiUrl = 'http://localhost:8000/api/consumo-diario';
   private quimicosUrl = 'http://localhost:8000/api/quimicos';
 
   ngOnInit() {
@@ -50,7 +52,7 @@ export class ConsumoQuimicos implements OnInit {
       tanque2_consumo: [null],
       total_consumo: [null],
       observaciones: [''],
-      operador_id: [1]
+      usuario_id: [this.authService.getUser()?.id || null]
     });
   }
 
@@ -81,7 +83,7 @@ export class ConsumoQuimicos implements OnInit {
             this.form.patchValue({
               fecha: now.toISOString().split('T')[0],
               tanque1_hora: now.toTimeString().split(' ')[0].substring(0, 5),
-              operador_id: 1
+              usuario_id: this.authService.getUser()?.id || null
             });
             this.successMessage = '';
           }, 2000);

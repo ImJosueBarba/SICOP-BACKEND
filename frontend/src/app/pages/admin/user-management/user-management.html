@@ -155,7 +155,7 @@
         [draggable]="false"
         [resizable]="false">
         
-        <form [formGroup]="form" (ngSubmit)="saveUsuario()">
+        <div [formGroup]="form">
             <div class="form-grid">
                 <div class="form-row">
                     <div class="form-field">
@@ -279,7 +279,7 @@
                         formControlName="fecha_contratacion" />
                 </div>
             </div>
-        </form>
+        </div>
 
         <ng-template pTemplate="footer">
             <button 
@@ -287,6 +287,7 @@
                 label="Cancelar" 
                 icon="pi pi-times" 
                 class="p-button-text"
+                type="button"
                 (click)="hideDialog()">
             </button>
             <button 
@@ -294,6 +295,7 @@
                 label="Guardar" 
                 icon="pi pi-check" 
                 class="p-button-success"
+                type="button"
                 (click)="saveUsuario()">
             </button>
         </ng-template>

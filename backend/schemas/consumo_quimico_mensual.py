@@ -49,7 +49,7 @@ class ConsumoQuimicoMensualBase(BaseModel):
     fin_mes_kg: Optional[Decimal] = None
     
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para crear
@@ -84,7 +84,7 @@ class ConsumoQuimicoMensualUpdate(BaseModel):
     egreso_mes_kg: Optional[Decimal] = None
     fin_mes_kg: Optional[Decimal] = None
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para respuesta

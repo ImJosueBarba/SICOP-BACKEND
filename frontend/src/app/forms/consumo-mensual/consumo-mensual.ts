@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Location, CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'app-consumo-mensual',
@@ -18,6 +19,7 @@ export class ConsumoMensual implements OnInit {
     private http = inject(HttpClient);
     private router = inject(Router);
     private location = inject(Location);
+    private authService = inject(AuthService);
 
     form!: FormGroup;
     loading = false;
@@ -85,7 +87,7 @@ export class ConsumoMensual implements OnInit {
             fin_mes_kg: [null],
 
             observaciones: [''],
-            operador_id: [1] // Default operator for now
+            usuario_id: [this.authService.getUser()?.id || null]
         });
     }
 

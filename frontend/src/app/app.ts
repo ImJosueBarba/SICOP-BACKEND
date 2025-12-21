@@ -12,9 +12,12 @@ import { filter } from 'rxjs/operators';
 })
 export class App {
   private router = inject(Router);
-  private currentUrl = '';
+  private currentUrl: string;
 
   constructor() {
+    // Inicializar con la URL actual
+    this.currentUrl = this.router.url;
+    
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
@@ -23,6 +26,7 @@ export class App {
   }
 
   shouldShowLayout(): boolean {
-    return !this.currentUrl.includes('/login');
+    // No mostrar layout en login o si la URL está vacía y vamos a redirigir a login
+    return !!this.currentUrl && !this.currentUrl.includes('/login');
   }
 }

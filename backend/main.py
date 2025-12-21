@@ -64,7 +64,7 @@ app.include_router(consumo_mensual.router, prefix="/api/consumo-mensual", tags=[
 app.include_router(control_operacion.router, prefix="/api/control-operacion", tags=["Control Operación"])
 app.include_router(produccion_filtros.router, prefix="/api/produccion-filtros", tags=["Producción Filtros"])
 app.include_router(consumo_diario.router, prefix="/api/consumo-diario", tags=["Consumo Diario"])
-app.include_router(cloro_libre.router, prefix="/api/cloro-libre", tags=["Cloro Libre"])
+app.include_router(cloro_libre.router, prefix="/api/control-cloro", tags=["Control Cloro"])
 app.include_router(monitoreo_fisicoquimico.router, prefix="/api/monitoreo-fisicoquimico", tags=["Monitoreo Fisicoquímico"])
 app.include_router(auth.router, prefix="/api/auth", tags=["Autenticación"])
 app.include_router(logs.router)  # Ya tiene prefix="/api/logs" en el router
@@ -73,9 +73,6 @@ app.include_router(logs.router)  # Ya tiene prefix="/api/logs" en el router
 @app.on_event("startup")
 async def startup_event():
     """Evento que se ejecuta al iniciar la aplicación"""
-    print("🚀 Iniciando API de Planta de Tratamiento de Agua...")
-    print("ℹ️  Para crear las tablas, ejecuta el script database_schema.sql en PostgreSQL")
-    # Crear tablas automáticamente si no existen
     Base.metadata.create_all(bind=engine)
     print("✅ API inicializada")
 

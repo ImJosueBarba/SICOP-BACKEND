@@ -12,7 +12,7 @@ from decimal import Decimal
 class MonitoreoFisicoquimicoBase(BaseModel):
     """Schema base de Monitoreo Fisicoquímico"""
     fecha: date
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
     lugar_agua_cruda: Optional[str] = Field(None, max_length=200)
     lugar_agua_tratada: Optional[str] = Field(None, max_length=200)
     
@@ -46,7 +46,7 @@ class MonitoreoFisicoquimicoCreate(MonitoreoFisicoquimicoBase):
 class MonitoreoFisicoquimicoUpdate(BaseModel):
     """Schema para actualizar un registro de monitoreo existente"""
     fecha: Optional[date] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
     lugar_agua_cruda: Optional[str] = None
     lugar_agua_tratada: Optional[str] = None
     muestra_numero: Optional[int] = Field(None, ge=1, le=3)

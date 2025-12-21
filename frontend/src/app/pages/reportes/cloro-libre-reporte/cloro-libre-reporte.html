@@ -79,18 +79,18 @@
           </thead>
           <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
             <tr *ngFor="let registro of registros" class="hover:bg-gray-50 dark:hover:bg-gray-700">
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.fecha | date:'dd/MM/yyyy' }}</td>
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.documento_soporte }}</td>
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.proveedor_solicitante }}</td>
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.especificacion }}</td>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.fecha_mes | date:'dd/MM/yyyy' }}</td>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.documento_soporte || '-' }}</td>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.proveedor_solicitante || '-' }}</td>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.especificacion || '-' }}</td>
               <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center">
-                <span class="text-green-600 dark:text-green-400 font-medium">{{ registro.cantidad_entrada || '-' }}</span>
+                <span class="text-green-600 dark:text-green-400 font-medium">{{ registro.cantidad_entra || '-' }}</span>
               </td>
               <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center">
-                <span class="text-red-600 dark:text-red-400 font-medium">{{ registro.cantidad_salida || '-' }}</span>
+                <span class="text-red-600 dark:text-red-400 font-medium">{{ registro.cantidad_sale || '-' }}</span>
               </td>
               <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center">
-                <span class="font-semibold">{{ registro.saldo }}</span>
+                <span class="font-semibold">{{ registro.cantidad_saldo || '-' }}</span>
               </td>
             </tr>
             <tr *ngIf="registros.length === 0">

@@ -23,7 +23,8 @@ router = APIRouter(
 
 def require_admin(current_user: Usuario = Depends(get_current_user)):
     """Verificar que el usuario actual sea administrador"""
-    if current_user.rol != UserRole.ADMINISTRADOR:
+    # Verificar usando el nuevo sistema de roles
+    if not current_user.rol_obj or current_user.rol_obj.categoria != "ADMINISTRADOR":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Solo los administradores pueden acceder a los logs"

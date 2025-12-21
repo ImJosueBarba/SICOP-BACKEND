@@ -39,7 +39,7 @@ class ProduccionFiltroBase(BaseModel):
     filtro6_q: Optional[Decimal] = None
     
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para crear
@@ -66,7 +66,7 @@ class ProduccionFiltroUpdate(BaseModel):
     filtro6_h: Optional[Decimal] = None
     filtro6_q: Optional[Decimal] = None
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para respuesta

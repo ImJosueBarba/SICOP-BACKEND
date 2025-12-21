@@ -102,16 +102,35 @@
           <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
             <tr *ngFor="let registro of registros" class="hover:bg-gray-50 dark:hover:bg-gray-700">
               <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.fecha | date:'dd/MM/yyyy' }}</td>
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.quimico_nombre }}</td>
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center">
-                <span class="font-medium text-red-600 dark:text-red-400">{{ registro.consumo }} {{ registro.unidad }}</span>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                <div>Sulfato: {{ registro.sulfato_con || '-' }}</div>
+                <div>Cal: {{ registro.cal_con || '-' }}</div>
+                <div>Hipoclorito: {{ registro.hipoclorito_con || '-' }}</div>
+                <div>Gas Cloro: {{ registro.cloro_gas_con || '-' }}</div>
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                <div>Sulfato: {{ registro.sulfato_con || '-' }}</div>
+                <div>Cal: {{ registro.cal_con || '-' }}</div>
+                <div>Hipoclorito: {{ registro.hipoclorito_con || '-' }}</div>
+                <div>Gas Cloro: {{ registro.cloro_gas_con || '-' }}</div>
               </td>
               <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center">
-                <span class="text-green-600 dark:text-green-400 font-medium">{{ registro.ingreso || '-' }} {{ registro.ingreso ? registro.unidad : '' }}</span>
+                <div>Sulfato: {{ registro.sulfato_ing || '-' }}</div>
+                <div>Cal: {{ registro.cal_ing || '-' }}</div>
+                <div>Hipoclorito: {{ registro.hipoclorito_ing || '-' }}</div>
+                <div>Gas Cloro: {{ registro.cloro_gas_ing_bal || '-' }}</div>
               </td>
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ registro.guia || '-' }}</td>
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center font-semibold">{{ registro.remanente }} {{ registro.unidad }}</td>
-              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center">{{ registro.produccion_m3_dia }}</td>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                <div>Sulfato: {{ registro.sulfato_guia || '-' }}</div>
+                <div>Cal: {{ registro.cal_guia || '-' }}</div>
+                <div>Hipoclorito: {{ registro.hipoclorito_guia || '-' }}</div>
+                <div>Gas Cloro: {{ registro.cloro_gas_guia || '-' }}</div>
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center">
+                <div>Sulfato: {{ registro.sulfato_re || '-' }}</div>
+                <div>Gas Cloro: {{ registro.cloro_gas_egre || '-' }}</div>
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 text-center">{{ registro.produccion_m3_dia || '-' }}</td>
             </tr>
             <tr *ngIf="registros.length === 0">
               <td colspan="7" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">

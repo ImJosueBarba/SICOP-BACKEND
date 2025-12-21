@@ -49,7 +49,7 @@ class ControlOperacionBase(BaseModel):
     cloro_residual: Optional[Decimal] = None
     
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para crear
@@ -82,7 +82,7 @@ class ControlOperacionUpdate(BaseModel):
     presion_total: Optional[Decimal] = None
     cloro_residual: Optional[Decimal] = None
     observaciones: Optional[str] = None
-    operador_id: Optional[int] = None
+    usuario_id: Optional[int] = None
 
 
 # Schema para respuesta

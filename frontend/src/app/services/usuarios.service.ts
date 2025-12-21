@@ -37,6 +37,7 @@ export interface UsuarioCreate {
 export interface UsuarioUpdate {
   nombre?: string;
   apellido?: string;
+  username?: string;
   email?: string;
   telefono?: string;
   rol_id?: number;  // Cambiar de enum a ID
@@ -79,7 +80,39 @@ export class UsuariosService {
   }
 
   updateUsuario(id: number, usuario: UsuarioUpdate): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.apiUrl}/${id}`, usuario);
+    // Crear FormData para enviar al backend
+    const formData = new FormData();
+    
+    if (usuario.nombre !== undefined && usuario.nombre !== null) {
+      formData.append('nombre', usuario.nombre);
+    }
+    if (usuario.apellido !== undefined && usuario.apellido !== null) {
+      formData.append('apellido', usuario.apellido);
+    }
+    if (usuario.username !== undefined && usuario.username !== null) {
+      formData.append('username', usuario.username);
+    }
+    if (usuario.email !== undefined && usuario.email !== null && usuario.email !== '') {
+      formData.append('email', usuario.email);
+    }
+    if (usuario.telefono !== undefined && usuario.telefono !== null && usuario.telefono !== '') {
+      formData.append('telefono', usuario.telefono);
+    }
+    if (usuario.rol_id !== undefined && usuario.rol_id !== null) {
+      formData.append('rol_id', usuario.rol_id.toString());
+    }
+    if (usuario.activo !== undefined && usuario.activo !== null) {
+      // Convertir booleano a string que FastAPI pueda entender
+      formData.append('activo', usuario.activo ? 'true' : 'false');
+    }
+    if (usuario.fecha_contratacion !== undefined && usuario.fecha_contratacion !== null && usuario.fecha_contratacion !== '') {
+      formData.append('fecha_contratacion', usuario.fecha_contratacion);
+    }
+    if (usuario.password !== undefined && usuario.password !== null && usuario.password.trim() !== '') {
+      formData.append('password', usuario.password);
+    }
+    
+    return this.http.put<Usuario>(`${this.apiUrl}/${id}`, formData);
   }
 
   deleteUsuario(id: number): Observable<void> {

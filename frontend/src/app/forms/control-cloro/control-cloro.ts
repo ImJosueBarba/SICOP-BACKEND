@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Location, CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-control-cloro',
@@ -12,6 +13,7 @@ export class ControlCloro implements OnInit {
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
   private location = inject(Location);
+  private authService = inject(AuthService);
   form!: FormGroup;
   loading = false;
   successMessage = '';
@@ -30,7 +32,7 @@ export class ControlCloro implements OnInit {
       cantidad_sale: [null],
       cantidad_saldo: [null],
       observaciones: [''],
-      operador_id: [1]
+      usuario_id: [this.authService.getUser()?.id || null]
     });
   }
 

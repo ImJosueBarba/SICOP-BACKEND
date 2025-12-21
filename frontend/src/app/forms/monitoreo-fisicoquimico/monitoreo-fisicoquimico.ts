@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Location, CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-monitoreo-fisicoquimico',
@@ -12,6 +13,7 @@ export class MonitoreoFisicoquimico implements OnInit {
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
   private location = inject(Location);
+  private authService = inject(AuthService);
   form!: FormGroup;
   loading = false;
   successMessage = '';
@@ -37,7 +39,7 @@ export class MonitoreoFisicoquimico implements OnInit {
       at_salinidad: [null],
       at_temperatura: [null],
       observaciones: [''],
-      operador_id: [1]
+      usuario_id: [this.authService.getUser()?.id || null]
     });
   }
 
