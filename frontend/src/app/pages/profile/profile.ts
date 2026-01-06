@@ -57,8 +57,8 @@ export class Profile implements OnInit {
     this.profileForm = this.fb.group({
       nombre: [this.currentUser?.nombre || '', [Validators.required]],
       email: [this.currentUser?.email || '', [Validators.required, Validators.email]],
-      usuario: [{ value: this.currentUser?.usuario || '', disabled: true }],
-      rol: [{ value: this.currentUser?.rol || '', disabled: true }]
+      usuario: [{ value: this.currentUser?.username || '', disabled: true }],
+      rol: [{ value: this.currentUser?.rol?.nombre || '', disabled: true }]
     });
   }
 

@@ -185,3 +185,67 @@ html.dark .form-field ::ng-deep input:disabled {
 html.dark .form-actions {
   border-top-color: #374151;
 }
+
+/* Message styles */
+::ng-deep .p-message {
+  margin: 1rem 0;
+  border-radius: 6px;
+}
+
+::ng-deep .p-message-success {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+::ng-deep .p-message-success .p-message-icon {
+  color: #16a34a;
+}
+
+::ng-deep .p-message-success .p-message-text {
+  color: #166534;
+  font-weight: 500;
+}
+
+::ng-deep .p-message-error {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+
+::ng-deep .p-message-error .p-message-icon {
+  color: #dc2626;
+}
+
+::ng-deep .p-message-error .p-message-text {
+  color: #991b1b;
+  font-weight: 500;
+}
+
+html.dark ::ng-deep .p-message-success {
+  background: #064e3b;
+  border-color: #059669;
+  color: #d1fae5;
+}
+
+html.dark ::ng-deep .p-message-success .p-message-icon {
+  color: #34d399;
+}
+
+html.dark ::ng-deep .p-message-success .p-message-text {
+  color: #d1fae5;
+}
+
+html.dark ::ng-deep .p-message-error {
+  background: #7f1d1d;
+  border-color: #dc2626;
+  color: #fecaca;
+}
+
+html.dark ::ng-deep .p-message-error .p-message-icon {
+  color: #f87171;
+}
+
+html.dark ::ng-deep .p-message-error .p-message-text {
+  color: #fecaca;
+}
