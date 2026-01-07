@@ -50,7 +50,17 @@ export class AuthService {
     async initializeAuth(): Promise<void> {
         if (this.isInitialized) return;
         this.isInitialized = true;
-        await this.loadUserFromToken();
+        
+        try {
+            // Set a timeout to ensure this always resolves
+            await Promise.race([
+                this.loadUserFromToken(),
+                new Promise(resolve => setTimeout(resolve, 3000)) // 3 second timeout
+            ]);
+        } catch (error) {
+            console.error('Error initializing auth:', error);
+            // Always resolve, never block app initialization
+        }
     }
 
     async login(username: string, password: string): Promise<void> {
@@ -59,13 +69,49 @@ export class AuthService {
         formData.append('password', password);
 
         try {
-            const response = await firstValueFrom(
-                this.http.post<AuthResponse>(`${this.apiUrl}/token`, formData)
-            );
+            // Add timeout to login request
+            const response = await Promise.race([
+                firstValueFrom(
+                    this.http.post<AuthResponse>(`${this.apiUrl}/token`, formData)
+                ),
+                new Promise<never>((_, reject) => 
+                    setTimeout(() => reject(new Error('Login timeout - Backend no responde')), 10000)
+                )
+            ]);
             
             localStorage.setItem(this.tokenKey, response.access_token);
-            await this.loadUserFromToken();
+            
+            // Load user directly without timeout after successful login
+            const token = response.access_token;
+            try {
+                const user = await firstValueFrom(
+                    this.http.get<any>(`${this.apiUrl}/me`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    })
+                );
+                
+                this.currentUserSubject.next({
+                    id: user.id,
+                    username: user.username,
+                    nombre: user.nombre,
+                    apellido: user.apellido,
+                    email: user.email,
+                    telefono: user.telefono,
+                    rol: user.rol,
+                    rol_id: user.rol_id,
+                    activo: user.activo,
+                    fecha_contratacion: user.fecha_contratacion,
+                    foto_perfil: user.foto_perfil,
+                    sub: user.username,
+                    es_administrador: user.es_administrador,
+                    es_operador: user.es_operador
+                });
+            } catch (userError) {
+                console.error('Error loading user after login:', userError);
+                // Login was successful, user data will be loaded later by authGuard
+            }
         } catch (error) {
+            console.error('Login error:', error);
             throw error;
         }
     }
@@ -123,14 +169,14 @@ export class AuthService {
                 return;
             }
             
-            // Fetch user details from /me endpoint
-            try {
-                const user = await firstValueFrom(
-                    this.http.get<any>(`${this.apiUrl}/me`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    })
-                );
-                
+            // Fetch user details from /me endpoint without timeout
+            const user = await firstValueFrom(
+                this.http.get<any>(`${this.apiUrl}/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+            );
+            
+            if (user) {
                 this.currentUserSubject.next({
                     id: user.id,
                     username: user.username,
@@ -138,7 +184,7 @@ export class AuthService {
                     apellido: user.apellido,
                     email: user.email,
                     telefono: user.telefono,
-                    rol: user.rol,  // Objeto RolSimple
+                    rol: user.rol,
                     rol_id: user.rol_id,
                     activo: user.activo,
                     fecha_contratacion: user.fecha_contratacion,
@@ -147,21 +193,15 @@ export class AuthService {
                     es_administrador: user.es_administrador,
                     es_operador: user.es_operador
                 });
-            } catch (err: any) {
-                console.error('Error loading user:', err);
-                // Only logout if it's an authentication error (401)
-                if (err.status === 401) {
-                    this.logout();
-                } else {
-                    // For other errors, keep the session but don't set user
-                    console.warn('Error fetching user data, but keeping token');
-                    this.currentUserSubject.next(null);
-                }
             }
-
-        } catch (e) {
-            console.error('Error decoding token:', e);
-            this.logout();
+        } catch (err: any) {
+            console.error('Error loading user:', err);
+            // Clear token if auth error
+            if (err.status === 401) {
+                localStorage.removeItem(this.tokenKey);
+            }
+            this.currentUserSubject.next(null);
+            throw err;
         }
     }
 
