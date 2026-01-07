@@ -2,14 +2,14 @@
   <div class="max-w-[1400px] mx-auto">
     <!-- Header -->
     <div class="mb-6">
-      <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">Control de Cloro Libre</h1>
-      <p class="text-gray-600 dark:text-gray-400">Inventario y movimientos de cloro libre</p>
+      <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">Registro de Ingresos y Egresos de Reactivos</h1>
+      <p class="text-gray-600 dark:text-gray-400">Control de inventario y movimientos de reactivos químicos</p>
     </div>
 
     <!-- Filtros -->
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-6">
       <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Filtros</h2>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha Inicio</label>
           <input 
@@ -23,6 +23,14 @@
           <input 
             type="date" 
             [(ngModel)]="fechaFin"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mes para Excel</label>
+          <input 
+            type="month" 
+            [(ngModel)]="filtroFecha"
             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

@@ -57,7 +57,7 @@ export class Sidebar implements OnInit {
           route: '/forms/control-operacion'
         },
         {
-          label: 'Control de Cloro Libre',
+          label: 'Registro de Reactivos',
           icon: 'pi-circle',
           route: '/forms/control-cloro'
         },
@@ -75,7 +75,7 @@ export class Sidebar implements OnInit {
       roles: ['OPERADOR'],
       children: [
         {
-          label: 'Producción de Filtros',
+          label: 'Producción por Filtros',
           icon: 'pi-filter',
           route: '/forms/produccion-filtros'
         },
@@ -103,7 +103,7 @@ export class Sidebar implements OnInit {
           route: '/reportes/control-operacion'
         },
         {
-          label: 'Control de Cloro Libre',
+          label: 'Registro de Reactivos',
           icon: 'pi-eye',
           route: '/reportes/cloro-libre'
         },
@@ -113,7 +113,7 @@ export class Sidebar implements OnInit {
           route: '/reportes/monitoreo-fisicoquimico'
         },
         {
-          label: 'Producción de Filtros',
+          label: 'Producción por Filtros',
           icon: 'pi-eye',
           route: '/reportes/produccion-filtros'
         },

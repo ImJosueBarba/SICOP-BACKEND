@@ -18,6 +18,7 @@ export class ConsumoDiarioReporte implements OnInit {
   fechaInicio: string = '';
   fechaFin: string = '';
   quimicoSeleccionado: string = '';
+  fechaExportar: string = '';
   
   constructor(private http: HttpClient) {}
 
@@ -70,7 +71,29 @@ export class ConsumoDiarioReporte implements OnInit {
     this.cargarRegistros();
   }
 
-  exportarExcel() {
-    console.log('Exportar a Excel');
+  async exportarExcel() {
+    if (!this.fechaExportar) {
+      alert('Por favor seleccione una fecha para exportar');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8000/api/consumo-diario/exportar-excel/fecha/${this.fechaExportar}`);
+      
+      if (!response.ok) {
+        throw new Error('Error al exportar');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `consumo_diario_${this.fechaExportar}.xlsx`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al exportar el archivo');
+    }
   }
 }
