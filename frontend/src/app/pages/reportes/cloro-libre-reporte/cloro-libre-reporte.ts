@@ -18,6 +18,7 @@ export class CloroLibreReporte implements OnInit {
   // Filtros
   fechaInicio: string = '';
   fechaFin: string = '';
+  filtroFecha: string = ''; // Para exportar por mes (YYYY-MM)
   
   constructor(private http: HttpClient) {}
 
@@ -66,7 +67,32 @@ export class CloroLibreReporte implements OnInit {
     this.cargarRegistros();
   }
 
-  exportarExcel() {
-    console.log('Exportar a Excel');
+  async exportarExcel() {
+    if (!this.filtroFecha) {
+      alert('Seleccione un mes para exportar');
+      return;
+    }
+
+    try {
+      // filtroFecha ya viene en formato YYYY-MM del input type="month"
+      const fecha = this.filtroFecha;
+      
+      const response = await fetch(`http://localhost:8000/api/control-cloro/exportar-excel/mes/${fecha}`);
+      
+      if (!response.ok) {
+        throw new Error('Error al generar el Excel');
+      }
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `registro_reactivos_${fecha}.xlsx`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error al exportar:', error);
+      alert('Error al exportar a Excel');
+    }
   }
 }

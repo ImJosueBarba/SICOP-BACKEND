@@ -36,7 +36,7 @@ export class Home implements OnInit {
       roles: ['OPERADOR']
     },
     {
-      title: 'Producción de Filtros',
+      title: 'Producción por Filtros',
       description: 'Registro de producción diaria',
       icon: 'pi-filter',
       route: '/forms/produccion-filtros',
@@ -44,8 +44,8 @@ export class Home implements OnInit {
       roles: ['OPERADOR']
     },
     {
-      title: 'Control de Cloro',
-      description: 'Monitoreo de cloro libre',
+      title: 'Registro de Reactivos',
+      description: 'Ingresos y egresos de reactivos',
       icon: 'pi-circle',
       route: '/forms/control-cloro',
       color: 'purple',

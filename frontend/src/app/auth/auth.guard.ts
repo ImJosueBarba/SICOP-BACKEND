@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Router, CanActivateFn } from '@angular/router';
 import { AuthService } from './auth.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = async (route, state) => {
     const authService = inject(AuthService);
     const router = inject(Router);
 
@@ -12,12 +12,22 @@ export const authGuard: CanActivateFn = (route, state) => {
         return router.createUrlTree(['/login']);
     }
 
-    // Get current user (should be loaded by APP_INITIALIZER)
-    const user = authService.getUser();
+    // Get current user, load if not present
+    let user = authService.getUser();
     
     if (!user) {
-        // Token exists but user failed to load, redirect to login
-        return router.createUrlTree(['/login']);
+        // Try to load user from token
+        try {
+            await authService.loadUserFromToken();
+            user = authService.getUser();
+        } catch (error) {
+            // If loading fails, redirect to login
+            return router.createUrlTree(['/login']);
+        }
+        
+        if (!user) {
+            return router.createUrlTree(['/login']);
+        }
     }
 
     // Check role-based access

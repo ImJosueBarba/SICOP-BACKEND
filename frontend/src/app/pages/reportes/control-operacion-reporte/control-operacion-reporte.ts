@@ -66,8 +66,34 @@ export class ControlOperacionReporte implements OnInit {
     this.cargarRegistros();
   }
 
-  exportarExcel() {
-    // Implementar exportación a Excel
-    console.log('Exportar a Excel');
+  async exportarExcel() {
+    if (this.registros.length === 0) {
+      alert('No hay datos para exportar');
+      return;
+    }
+
+    // Obtener la fecha del primer registro
+    const fecha = this.registros[0]?.fecha || new Date().toISOString().split('T')[0];
+    
+    // Llamar al endpoint del backend
+    const url = `http://localhost:8000/api/control-operacion/exportar-excel/fecha/${fecha}`;
+    
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Error al generar el archivo Excel');
+      }
+      
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = `control_operacion_${fecha}.xlsx`;
+      a.click();
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error('Error al exportar:', error);
+      alert('Error al exportar el archivo Excel');
+    }
   }
 }
