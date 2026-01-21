@@ -18,14 +18,19 @@ DATABASE_URL = os.getenv(
     "postgresql://postgres:UTM123@localhost:5432/planta_esperanza"
 )
 
-# Crear engine con codificación UTF-8
+# Crear engine con codificación UTF-8 optimizado para Supabase
 engine = create_engine(
     DATABASE_URL,
     pool_pre_ping=True,  # Verifica la conexión antes de usarla
     echo=False,  # Cambia a True para ver las queries SQL en consola
     future=True,
-    poolclass=NullPool if "sqlite" in DATABASE_URL else None,
-    connect_args={"client_encoding": "utf8"}  # Forzar UTF-8
+    pool_size=5,  # Tamaño del pool de conexiones
+    max_overflow=10,  # Conexiones adicionales permitidas
+    pool_recycle=3600,  # Reciclar conexiones cada hora (importante para Supabase)
+    connect_args={
+        "client_encoding": "utf8",
+        "connect_timeout": 10  # Timeout de conexión para Supabase
+    }
 )
 
 # Crear SessionLocal
