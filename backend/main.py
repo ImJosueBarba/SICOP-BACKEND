@@ -42,6 +42,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:4200",  # Angular en desarrollo local
+        "http://localhost:8100",  # Ionic en desarrollo local
         "http://localhost",       # Frontend en Docker
         "http://localhost:80"     # Frontend en Docker (explícito)
     ],
