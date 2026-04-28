@@ -15,23 +15,36 @@ load_dotenv()
 # Configuración de la base de datos
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://postgres:UTM123@localhost:5432/planta_esperanza"
+    "sqlite:///./planta_esperanza.db"
 )
 
-# Crear engine con codificación UTF-8 optimizado para Supabase
-engine = create_engine(
-    DATABASE_URL,
-    pool_pre_ping=True,  # Verifica la conexión antes de usarla
-    echo=False,  # Cambia a True para ver las queries SQL en consola
-    future=True,
-    pool_size=5,  # Tamaño del pool de conexiones
-    max_overflow=10,  # Conexiones adicionales permitidas
-    pool_recycle=3600,  # Reciclar conexiones cada hora (importante para Supabase)
-    connect_args={
-        "client_encoding": "utf8",
-        "connect_timeout": 10  # Timeout de conexión para Supabase
-    }
-)
+# Detectar tipo de base de datos
+is_sqlite = DATABASE_URL.startswith("sqlite")
+
+# Configurar engine según el tipo de base de datos
+if is_sqlite:
+    # Configuración para SQLite
+    engine = create_engine(
+        DATABASE_URL,
+        echo=False,
+        future=True,
+        connect_args={"check_same_thread": False}  # Necesario para SQLite con FastAPI
+    )
+else:
+    # Configuración para PostgreSQL (Supabase)
+    engine = create_engine(
+        DATABASE_URL,
+        pool_pre_ping=True,
+        echo=False,
+        future=True,
+        pool_size=5,
+        max_overflow=10,
+        pool_recycle=3600,
+        connect_args={
+            "client_encoding": "utf8",
+            "connect_timeout": 10
+        }
+    )
 
 # Crear SessionLocal
 SessionLocal = sessionmaker(

@@ -6,13 +6,22 @@ Sistema de Gestión de Planta de Tratamiento de Agua "La Esperanza"
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.exceptions import RequestValidationError
 from pathlib import Path
 from core.database import engine
 from models import Base
+from core.logging_middleware import LoggingMiddleware, setup_logging
+from core.exceptions import (
+    APIException,
+    api_exception_handler,
+    validation_exception_handler,
+    generic_exception_handler
+)
 
 # Importar routers
 from routers import (
     usuarios,
+    roles,
     quimicos,
     filtros,
     consumo_mensual,
@@ -20,13 +29,14 @@ from routers import (
     produccion_filtros,
     consumo_diario,
     cloro_libre,
-    consumo_diario,
-    cloro_libre,
     monitoreo_fisicoquimico,
     auth,
     logs,
-    roles
+    ml
 )
+
+# Configurar logging
+logger = setup_logging()
 
 # Crear la aplicación FastAPI
 app = FastAPI(
@@ -36,6 +46,14 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+# Registrar exception handlers globales
+app.add_exception_handler(APIException, api_exception_handler)
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(Exception, generic_exception_handler)
+
+# Agregar middleware de logging
+app.add_middleware(LoggingMiddleware)
 
 # Configurar CORS para permitir peticiones desde Angular
 app.add_middleware(
@@ -69,13 +87,29 @@ app.include_router(cloro_libre.router, prefix="/api/control-cloro", tags=["Contr
 app.include_router(monitoreo_fisicoquimico.router, prefix="/api/monitoreo-fisicoquimico", tags=["Monitoreo Fisicoquímico"])
 app.include_router(auth.router, prefix="/api/auth", tags=["Autenticación"])
 app.include_router(logs.router)  # Ya tiene prefix="/api/logs" en el router
+app.include_router(ml.router, prefix="/api")  # ML router (ya tiene prefix "/ml")
 
 
 @app.on_event("startup")
 async def startup_event():
     """Evento que se ejecuta al iniciar la aplicación"""
     Base.metadata.create_all(bind=engine)
-    print("✅ API inicializada")
+    logger.info("="*60)
+    logger.info("🚀 API Planta La Esperanza - INICIADA")
+    logger.info(f"📘 Documentación: http://localhost:8000/docs")
+    logger.info(f"📗 ReDoc: http://localhost:8000/redoc")
+    
+    # Cargar modelo ML si existe
+    try:
+        from ml.inference.predictor_service import ChemicalConsumptionPredictor
+        predictor = ChemicalConsumptionPredictor()
+        predictor.load_model()
+        logger.info("✅ Modelo ML cargado exitosamente")
+    except Exception as e:
+        logger.warning(f"⚠️  No se pudo cargar el modelo ML: {str(e)}")
+        logger.warning("   El sistema funcionará sin predicciones ML")
+    
+    logger.info("="*60)
 
 
 @app.get("/", tags=["Root"])

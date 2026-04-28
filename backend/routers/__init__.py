@@ -12,7 +12,10 @@ from . import (
     produccion_filtros,
     consumo_diario,
     cloro_libre,
-    monitoreo_fisicoquimico
+    monitoreo_fisicoquimico,
+    auth,
+    logs,
+    ml
 )
 
 __all__ = [
@@ -25,5 +28,8 @@ __all__ = [
     "produccion_filtros",
     "consumo_diario",
     "cloro_libre",
-    "monitoreo_fisicoquimico"
+    "monitoreo_fisicoquimico",
+    "auth",
+    "logs",
+    "ml"
 ]
